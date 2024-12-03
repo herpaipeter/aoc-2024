@@ -25,6 +25,6 @@ export function solvePart2(line: string): number {
 }
 
 function multiply(str: string) {
-    let parts = str.split(new RegExp("\\(|\\)|,"));
+    let parts = str.split(new RegExp("[(),]"));
     return parseInt(parts[1]) * parseInt(parts[2]);
 }
