@@ -39,5 +39,5 @@ test('part 1', () => {
 
 test('part 2', () => {
     const lines = readAll(__dirname + "/input.txt");
-    console.log("Day 02 part 2: " + solvePart2(lines));
+    console.log("Day 03 part 2: " + solvePart2(lines));
 });

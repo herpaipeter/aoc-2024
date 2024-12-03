@@ -24,12 +24,10 @@ test('lines needs sorting', () => {
 test('test example', () => {
     const lines = readLines(__dirname + "/example.txt");
     expect(solvePart1(lines)).toBe(11);
-    console.log("Day 01 Example part 1: " + solvePart1(lines));
 });
 
 test('test example part2', () => {
     const lines = readLines(__dirname + "/example.txt");
-    console.log("Day 01 Example part 2: " + solvePart2(lines));
     expect(solvePart2(lines)).toBe(31);
 });
 

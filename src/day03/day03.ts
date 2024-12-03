@@ -1,23 +1,20 @@
-import {sumNumbers} from "../../common/utils";
+import {getMatches, sumNumbers} from "../../common/utils";
 
 export function solvePart1(line: string): number | undefined {
-    const regex = new RegExp("mul\\([0-9]*,[0-9]*\\)", "dgi");
-    const result = [...line.matchAll(regex)];
-    return result.map(str => multiply(str[0])).reduce(sumNumbers, 0);
+    const result = getMatches(line, "mul\\([0-9]*,[0-9]*\\)");
+    return result.map(str => multiply(str)).reduce(sumNumbers, 0);
 }
 
 export function solvePart2(line: string): number {
-    const regex = new RegExp("mul\\([0-9]*,[0-9]*\\)|do\\(\\)|don't\\(\\)", "dgi");
-    const result = [...line.matchAll(regex)];
+    const result = getMatches(line, "mul\\([0-9]*,[0-9]*\\)|do\\(\\)|don't\\(\\)");
     let doIt = true;
     let sum = 0;
     for (let res of result) {
-        if (res[0].startsWith("mul") && doIt) {
-            sum += multiply(res[0]);
-        }
-        if (res[0].startsWith("don")) {
+        if (res.startsWith("mul") && doIt) {
+            sum += multiply(res);
+        } else if (res === "don't()") {
             doIt = false;
-        } else if (res[0].startsWith("do")) {
+        } else if (res === "do()") {
             doIt = true;
         }
     }

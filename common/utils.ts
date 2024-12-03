@@ -12,3 +12,8 @@ export function readLines(path: string): string[] {
 export function sumNumbers(accumulator: number, value: number): number {
     return accumulator + value;
 }
+
+export function getMatches(input: string, regexp: string): string[] {
+    const regex = new RegExp(regexp, "gi");
+    return [...input.matchAll(regex)].map(value => value[0]);
+}
