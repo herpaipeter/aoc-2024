@@ -4,10 +4,10 @@ const WORDS = ["XMAS", "SAMX"];
 const DIRECTIONS = [new Point(1, 0), new Point(0, 1), new Point(1, 1), new Point(-1, 1)];
 
 function wordMatch(lines: string[], r: number, c: number, direction: Point, word: string) {
-    if (0 <= c + (word.length - 1) * direction.x
-        && c + (word.length - 1) * direction.x < lines[r].length
-        && r + (word.length - 1) * direction.y < lines.length) {
-        for (let i = 0, j = 0; i < word.length && j < word.length; i += direction.y, j += direction.x) {
+    if (0 <= c + (word.length - 1) * direction.row
+        && c + (word.length - 1) * direction.row < lines[r].length
+        && r + (word.length - 1) * direction.col < lines.length) {
+        for (let i = 0, j = 0; i < word.length && j < word.length; i += direction.col, j += direction.row) {
             if (lines[r + i][c + j] !== word[Math.max(i, j)]) {
                 return false;
             }

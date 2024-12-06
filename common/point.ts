@@ -1,17 +1,41 @@
 export class Point {
-    x: number;
-    y: number;
+    private readonly _row: number;
+    private readonly _col: number;
 
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
+    constructor(r: number, c: number) {
+        this._row = r;
+        this._col = c;
     }
 
-    static displayName = "Point";
+    private static _displayName = "Point";
+
     static distance(a: Point, b: Point): number {
-        const dx = a.x - b.x;
-        const dy = a.y - b.y;
+        const dx = a._row - b._row;
+        const dy = a._col - b._col;
 
         return Math.hypot(dx, dy);
     }
+
+    add(other: Point): Point {
+        return new Point(this._row + other.row, this._col + other.col);
+    }
+
+    get row(): number {
+        return this._row;
+    }
+
+    get col(): number {
+        return this._col;
+    }
+
+    isSame(other: Point) {
+        return this._row === other.row && this._col === other.col;
+    }
+
 }
+
+export enum Direction {
+    UP, RIGHT, DOWN, LEFT
+}
+
+export const DIRECTIONS = [new Point(-1, 0), new Point(0, 1), new Point(1, 0), new Point(0, -1)];
