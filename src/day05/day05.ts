@@ -32,18 +32,15 @@ export class Day05 {
         return this.pageOrders
             .filter(pageOrder => this.isPassed(pageOrder))
             .map(pageOrder => this.getMiddlePage(pageOrder))
-            .reduce(sumNumbers);
+            .reduce(sumNumbers, 0);
     }
 
     solvePart2(): number {
-        let middlePages = this.pageOrders
+        return this.pageOrders
             .filter(pageOrder => !this.isPassed(pageOrder))
             .map(pageOrder => this.order(pageOrder))
-            .map(pageOrder => this.getMiddlePage(pageOrder));
-        if (0 < middlePages.length) {
-            return middlePages.reduce(sumNumbers);
-        }
-        return 0;
+            .map(pageOrder => this.getMiddlePage(pageOrder))
+            .reduce(sumNumbers, 0);
     }
 
     private isPassed(pageOrder: number[]) {
