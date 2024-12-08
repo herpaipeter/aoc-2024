@@ -10,13 +10,43 @@ export class Day08 {
         this.parser = new Day08Parser(lines);
     }
 
+    solvePart1(): number {
+        const antennas = this.parser.antennas.entries();
+        return this.iterateAntennas(antennas, this.calculateAntinodes.bind(this)).length;
+    }
+
+    private calculateAntinodes(point1: Point, point2: Point, antinodes: Point[]) {
+        const dist = point1.sub(point2);
+        this.addAntinode(antinodes, point1.add(dist));
+        this.addAntinode(antinodes, point2.sub(dist));
+    }
+
+    solvePart2(): number {
+        const antennas = this.parser.antennas.entries();
+        return this.iterateAntennas(antennas, this.calculateAllAntinodes.bind(this)).length;
+    }
+
+    private calculateAllAntinodes(point1: Point, point2: Point, antinodes: Point[]) {
+        const dist = point1.sub(point2);
+        let next = point1;
+        while (this.isInside(next)) {
+            this.addAntinode(antinodes, next);
+            next = next.add(dist);
+        }
+        next = point2;
+        while (this.isInside(next)) {
+            this.addAntinode(antinodes, next);
+            next = next.sub(dist);
+        }
+    }
+
     private iterateAntennas(antennas: MapIterator<[string, Point[]]>, calculator: Calculator) {
         let antinodes: Point[] = []
         for (const antenna of antennas) {
             const points = antenna[1];
             for (let i = 0; i < points.length - 1; i++) {
                 for (let j = i + 1; j < points.length; j++) {
-                    this.calculateAntinodes(points[i], points[j], antinodes);
+                    calculator(points[i], points[j], antinodes);
                 }
             }
         }
@@ -28,42 +58,6 @@ export class Day08 {
             && !antinodes.some(value => value.isSame(point))) {
             antinodes.push(point);
         }
-    }
-
-    private calculateAntinodes(point1: Point, point2: Point, antinodes: Point[]) {
-        const dist = point1.sub(point2);
-        this.addAntinode(antinodes, point1.add(dist));
-        this.addAntinode(antinodes, point2.sub(dist));
-    }
-
-    solvePart1(): number {
-        const antennas = this.parser.antennas.entries();
-        let antinodes = this.iterateAntennas(antennas, this.calculateAntinodes);
-        return antinodes.length;
-    }
-
-    solvePart2(): number {
-        const antennas = this.parser.antennas.entries();
-        let antinodes: Point[] = []
-        for (const antenna of antennas) {
-            const points = antenna[1];
-            for (let i = 0; i < points.length - 1; i++) {
-                for (let j = i + 1; j < points.length; j++) {
-                    const dist = points[i].sub(points[j]);
-                    let next = points[i];
-                    while (this.isInside(next)) {
-                        this.addAntinode(antinodes, next);
-                        next = next.add(dist);
-                    }
-                    next = points[j];
-                    while (this.isInside(next)) {
-                        this.addAntinode(antinodes, next);
-                        next = next.sub(dist);
-                    }
-                }
-            }
-        }
-        return antinodes.length;
     }
 
     private isInside(point: Point) {
