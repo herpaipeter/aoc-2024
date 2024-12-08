@@ -32,6 +32,13 @@ export class Point {
         return this._row === other.row && this._col === other.col;
     }
 
+    sub(other: Point): Point {
+        return new Point(this._row - other.row, this._col - other.col);
+    }
+
+    negate(): Point {
+        return new Point(-this._row, -this._col);
+    }
 }
 
 export enum Direction {
