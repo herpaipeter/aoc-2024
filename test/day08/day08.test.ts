@@ -71,6 +71,7 @@ test('new points multiline one new point', () => {
     expect(new Day08(["....a......", "......a....", "..........."]).solvePart1()).toBe(1);
 });
 
+
 test('test example', () => {
      const lines = readLines(__dirname + "/example.txt");
      expect(new Day08(lines).solvePart1()).toBe(14);
@@ -89,5 +90,5 @@ test('part 1', () => {
 
 test('part 2', () => {
     const lines = readLines(__dirname + "/input.txt");
-     console.log("Day 07 part 2: " + new Day08(lines).solvePart2());
+     console.log("Day 08 part 2: " + new Day08(lines).solvePart2());
 });
