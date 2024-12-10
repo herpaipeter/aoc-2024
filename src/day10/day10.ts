@@ -115,10 +115,7 @@ export class Day10Parser {
             return;
 
         this._colCount = line.length;
-        const nums: number[] = [];
-        for (let c of line) {
-            nums.push(parseInt(c));
-        }
+        const nums= line.split("").map(c => parseInt(c));
         this._heights.push(nums);
     }
 
