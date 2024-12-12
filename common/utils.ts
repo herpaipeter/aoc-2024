@@ -18,6 +18,10 @@ export function concatArrays<T>(accumulator: Array<T>, value:  Array<T>):  Array
     return accumulator;
 }
 
+export function sortReverse(a: number, b: number): number {
+    return b - a;
+}
+
 export function getMatches(input: string, regexp: string): string[] {
     const regex = new RegExp(regexp, "gi");
     return [...input.matchAll(regex)].map(value => value[0]);
