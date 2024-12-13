@@ -132,7 +132,7 @@ dist
 common/*.js
 src/**/*.js
 test/**/*.js
-test/**/*.txt
+test/**/input*.txt
 *.js.map
 
 .idea
