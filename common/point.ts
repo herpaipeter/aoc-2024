@@ -28,8 +28,8 @@ export class Point {
         return this._col;
     }
 
-    isSame(other: Point) {
-        return this._row === other.row && this._col === other.col;
+    isSame(other: Point | undefined) {
+        return this._row === other?.row && this._col === other?.col;
     }
 
     sub(other: Point): Point {
