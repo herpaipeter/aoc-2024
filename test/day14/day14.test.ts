@@ -35,11 +35,11 @@ test('test example', () => {
 
 test('part 1', () => {
      const lines = readLines(__dirname + "/input.txt");
-     console.log("Day XX part 1: " + new Day14(lines, 103, 101, 100).solvePart1());
+     console.log("Day 14 part 1: " + new Day14(lines, 103, 101, 100).solvePart1());
 });
 
 test('part 2', () => {
     //too low: 1937, 3874, 6445
     const lines = readLines(__dirname + "/input.txt");
-     console.log("Day XX part 2: " + new Day14(lines, 103, 101, 100).solvePart2());
+     console.log("Day 14 part 2: " + new Day14(lines, 103, 101, 100).solvePart2());
 });

@@ -128,10 +128,10 @@ test('test example part 2', () => {
 
 test('part 1', () => {
      const lines = readBlocks(__dirname + "/input.txt");
-     console.log("Day XX part 1: " + new Day15(lines).solvePart1());
+     console.log("Day 15 part 1: " + new Day15(lines).solvePart1());
 });
 
 test('part 2', () => {
     const lines = readBlocks(__dirname + "/input.txt");
-     console.log("Day XX part 2: " + new Day15(lines).solvePart2());
+     console.log("Day 15 part 2: " + new Day15(lines).solvePart2());
 });
