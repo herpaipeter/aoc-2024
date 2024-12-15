@@ -36,6 +36,10 @@ export class Point {
         return new Point(this._row - other.row, this._col - other.col);
     }
 
+    multi(multi: number): Point {
+        return new Point(multi * this._row, multi * this._col);
+    }
+
     negate(): Point {
         return new Point(-this._row, -this._col);
     }
