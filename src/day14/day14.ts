@@ -82,10 +82,6 @@ export class Day14 {
         console.log(log);
     }
 
-    private getId(p: Point) {
-        return p.row * this.parser.rowCount + p.col;
-    }
-
     private isInBlock(endPositions: Robot[]) {
         endPositions.sort((a, b) => a.position.row === b.position.row ? a.position.col - b.position.col : a.position.row - b.position.row);
         let lastRow = 0;

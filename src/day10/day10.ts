@@ -95,7 +95,7 @@ export class PathFinder {
     }
 
     private getId(p: Point) {
-        return p.row * this._rowCount + p.col;
+        return p.row * this._colCount + p.col;
     }
 }
 
