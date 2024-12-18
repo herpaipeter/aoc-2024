@@ -31,6 +31,10 @@ test('test example 3', () => {
     expect(new Day16(lines).solvePart1()).toBe(3021);
 });
 
+test('test example empty maze', () => {
+    const lines = readLines(__dirname + "/empty_maze.txt");
+    expect(new Day16(lines).solvePart1()).toBe(5078);
+});
 
 test('test example part 2', () => {
      const lines = readLines(__dirname + "/example.txt");
@@ -42,6 +46,10 @@ test('test example part 2 2.', () => {
     expect(new Day16(lines).solvePart2()).toBe(64);
 });
 
+test('test example empty maze part 2', () => {
+    const lines = readLines(__dirname + "/empty_maze.txt");
+    expect(new Day16(lines).solvePart2()).toBe(413);
+});
 
 
 test('part 1', () => {

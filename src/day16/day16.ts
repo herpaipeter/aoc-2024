@@ -10,7 +10,7 @@ export class Day16 {
 
     solvePart1(): number {
         if (this.parser.start) {
-            return this.findPath(new MazeState(this.parser.start, DIRECTIONS[Direction.RIGHT], 0));
+            return this.findPathOptimal(new MazeState(this.parser.start, DIRECTIONS[Direction.RIGHT], 0));
         }
         return 0;
     }
@@ -22,7 +22,7 @@ export class Day16 {
         return 0;
     }
 
-    private findPath(start: MazeState) {
+    private findPathGreedy(start: MazeState) {
         let states: MazeState[] = [start];
         let visited: Map<number, number> = new Map;
         let endStates: MazeState[] = [];
@@ -48,8 +48,22 @@ export class Day16 {
         return Math.min(...endStates.map(value => value.score));
     }
 
+    private findPathOptimal(start: MazeState) {
+        let states: MazeState[] = [start];
+        let visited: Map<number, number> = new Map;
+        let endStates: MazeState[] = [];
+        while (0 === endStates.length && 0 < states.length) {
+            states.sort((a, b) => a.score - b.score);
+            const less = states.splice(0, 1)[0];
+            states.push(...this.findNextsVisited(less, visited));
+            visited.set(this.getId(less.position), less.score);
+            endStates.push(...states.filter(value => value.position.isSame(this.parser.end)));
+        }
+        return Math.min(...endStates.map(value => value.score));
+    }
+
     private findPathWithRoute(start: MazeState) {
-        const minScore = this.findPath(start);
+        const minScore = this.findPathOptimal(start);
         let routes: MazeRoute[] = [new MazeRoute(start, new Set([this.getId(start.position)]))];
         let visited: Map<number, number> = new Map;
         let endRoutes: MazeRoute[] = [];
@@ -91,6 +105,28 @@ export class Day16 {
         return p.row * this.parser.colCount + p.col;
     }
 
+    private findNextsVisited(state: MazeState, visited: Map<number, number>) {
+        const states: MazeState[] = [];
+        if (state.direction.isSame(DIRECTIONS[Direction.RIGHT])) {
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.RIGHT], false);
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.UP], true);
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.DOWN], true);
+        } else if (state.direction.isSame(DIRECTIONS[Direction.DOWN])) {
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.DOWN], false);
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.LEFT], true);
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.RIGHT], true);
+        } else if (state.direction.isSame(DIRECTIONS[Direction.LEFT])) {
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.LEFT], false);
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.UP], true);
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.DOWN], true);
+        } else if (state.direction.isSame(DIRECTIONS[Direction.UP])) {
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.UP], false);
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.LEFT], true);
+            this.addValidNextVisited(states, visited, state, DIRECTIONS[Direction.RIGHT], true);
+        }
+        return states;
+    }
+
     private findNexts(state: MazeState) {
         const states: MazeState[] = [];
         if (state.direction.isSame(DIRECTIONS[Direction.RIGHT])) {
@@ -116,6 +152,13 @@ export class Day16 {
     private addValidNext(states: MazeState[], state: MazeState, direction: Point, turn: boolean) {
         const next = state.position.add(direction);
         if (this.isNotWall(next)) {
+            states.push(new MazeState(next, direction, state.score + (turn ? 1001 : 1)));
+        }
+    }
+
+    private addValidNextVisited(states: MazeState[], visited: Map<number, number>, state: MazeState, direction: Point, turn: boolean) {
+        const next = state.position.add(direction);
+        if (this.isNotWall(next) && !visited.has(this.getId(next))) {
             states.push(new MazeState(next, direction, state.score + (turn ? 1001 : 1)));
         }
     }
