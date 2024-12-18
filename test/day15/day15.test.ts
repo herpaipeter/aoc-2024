@@ -122,7 +122,22 @@ test('test example', () => {
 
 test('test example part 2', () => {
      const lines = readBlocks(__dirname + "/example.txt");
-     expect(new Day15(lines).solvePart2()).toBe(0);
+     expect(new Day15(lines).solvePart2()).toBe(9021);
+});
+
+test('test example part 2 2', () => {
+    const lines = readBlocks(__dirname + "/example2.txt");
+    expect(new Day15(lines).solvePart2()).toBe(406);
+});
+
+test('test example part 2 3', () => {
+    const lines = readBlocks(__dirname + "/example3.txt");
+    expect(new Day15(lines).solvePart2()).toBe(509);
+});
+
+test('test example part 2 4', () => {
+    const lines = readBlocks(__dirname + "/example4.txt");
+    expect(new Day15(lines).solvePart2()).toBe(2339);
 });
 
 
@@ -132,6 +147,7 @@ test('part 1', () => {
 });
 
 test('part 2', () => {
+    //TOO LOW: 1521347
     const lines = readBlocks(__dirname + "/input.txt");
      console.log("Day 15 part 2: " + new Day15(lines).solvePart2());
 });
