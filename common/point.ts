@@ -16,6 +16,10 @@ export class Point {
         return Math.hypot(dx, dy);
     }
 
+    static distanceManhattan(a: Point, b: Point): number {
+        return Math.abs(a._row - b._row) + Math.abs(a._col - b._col);
+    }
+
     add(other: Point): Point {
         return new Point(this._row + other.row, this._col + other.col);
     }
