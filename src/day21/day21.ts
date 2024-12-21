@@ -31,7 +31,19 @@ export class Day21 {
     }
 
     solvePart2(): number {
-        return 0;
+        let sum = 0;
+        for (let line of this._lines) {
+            const keypad1 = new NumericKeypad(line);
+            let keyPadDirections = new Set(keypad1.getDirections());
+            let humanDirectionSizes: Set<number> = new Set();
+            const keypad = new DirectionalKeypad();
+            for (let direction1 of keyPadDirections) {
+                humanDirectionSizes.add(keypad.getDirectionsMinSizeOnLevel(direction1, 25));
+            }
+            const min = Math.min(...[...humanDirectionSizes.values()]);
+            sum += parseInt(line.substring(0, 3)) * min;
+        }
+        return sum;
     }
 
 }
@@ -100,6 +112,7 @@ export class DirectionalKeypad {
     private dirMapAClosed: Map<string, string[]> = new Map<string, string[]>();
     private readonly FORBIDDEN_POSITION = new Point(0,0);
     private readonly routeFinder: RouteFinder = new RouteFinder(this.DIRECTION_KEYS, this.FORBIDDEN_POSITION);
+    private dirLevelSizes: Map<string, number> = new Map<string, number>();
 
     constructor() {
     }
@@ -174,6 +187,29 @@ export class DirectionalKeypad {
             size += Math.min(...this.getDirectionsAClosed(split).map(value => value.length));
         }
 
+        return size;
+    }
+
+    getDirectionsMinSizeOnLevel(directions: string, level: number): number {
+        if (0 === directions.length)
+            return 0;
+
+        if (0 === level)
+            return directions.length;
+
+        const dirLevelKey = directions + "," + level;
+        if (this.dirLevelSizes.has(dirLevelKey))
+            return this.dirLevelSizes.get(dirLevelKey)!;
+
+        let splitted = directions.split("A").map(value => value + "A");
+        splitted = 0 < splitted.length ? splitted.slice(0, splitted.length - 1) : ["A"];
+        let size: number = 0;
+        for (let split of splitted) {
+            let directionsAClosed = this.getDirectionsAClosed(split);
+            size += Math.min(...directionsAClosed.map(value => this.getDirectionsMinSizeOnLevel(value, level - 1)));
+        }
+
+        this.dirLevelSizes.set(dirLevelKey, size);
         return size;
     }
 }

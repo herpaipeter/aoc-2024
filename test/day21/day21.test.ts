@@ -97,6 +97,12 @@ test('directional keypad <Av<A', () => {
 });
 
 
+test('directional keypad <Av<A', () => {
+    const keypad = new DirectionalKeypad();
+    expect(keypad.getDirectionsMinSizeOnLevel("<Av<A", 1)).toStrictEqual(17);
+});
+
+
 
 test('test example', () => {
      const lines = readLines(__dirname + "/example.txt");
@@ -105,7 +111,7 @@ test('test example', () => {
 
 test('test example part 2', () => {
      const lines = readLines(__dirname + "/example.txt");
-     expect(new Day21(lines).solvePart2()).toBe(0);
+     expect(new Day21(lines).solvePart2()).toBe(154115708116294);
 });
 
 
