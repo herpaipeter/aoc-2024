@@ -1,4 +1,4 @@
-import {readBlocks, readLines} from "../../common/utils";
+import {readBlocks} from "../../common/utils";
 import {Day25, Day25Parser} from "../../src/day25/day25";
 
 test('empty lines part 1', () => {

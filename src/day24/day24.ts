@@ -119,13 +119,11 @@ export class Calculator {
                 }
             }
         }
-        let num = this.toNumber(zWires);
-        return num;
+        return this.toNumber(zWires);
     }
 
     getWiresFor(start: string) {
-        const zWires = [...this._wires.values()].filter(value => value.id.startsWith(start));
-        return zWires;
+        return [...this._wires.values()].filter(value => value.id.startsWith(start));
     }
 
     toNumber(wires: Wire[]) {

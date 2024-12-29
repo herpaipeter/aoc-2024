@@ -45,9 +45,6 @@ export class Day25Parser {
         }
     }
 
-    private parseLine(line: string, row: number) {
-    }
-
     get locks(): number[][] {
         return this._locks;
     }
